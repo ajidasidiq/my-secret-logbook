@@ -29,6 +29,10 @@ def validate(line: str) -> None:
         raise ValueError("line must not be only white space")
     if "\n" in line or "\r" in line:
         raise ValueError("line must be a single line")
+    if any(ord(ch) < 0x20 for ch in line):
+        raise ValueError("line must not contain a control character")
+    if line != line.strip():
+        raise ValueError("line must not have leading or trailing whitespace")
 
 
 def write_entry(line: str) -> str:
